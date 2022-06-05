@@ -1,0 +1,44 @@
+{% extends "global_layout.html" %}
+{% block content %}
+<div class="container">
+    {% include "flash_messages.html" %}
+    <div class="row" id="row">
+        <div class="col-md-12">
+            <div class="card" id="card-container">
+                <div class="card-body" id="card">
+                    <h4 class="card-title">Researchers working on projects with no deliverables</h4>
+                </div>
+                <div class="card-body" id="card">
+                {% if r|length == 0 %}
+                    <!-- |length is a jinja2 filter that returns the amount of items in a sequence -->
+                    <h1 style="margin-top: 5rem;">No researchers found!</h1>
+                {% else %}
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Number of Projects</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for e in r %}
+                                    <tr>
+
+                                        <td> {{ e.first_name }} </td>
+                                        <td> {{ e.last_name }} </td>
+                                        <td> {{ e.num_projects }} </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

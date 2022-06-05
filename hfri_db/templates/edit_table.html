@@ -1,0 +1,54 @@
+{% extends "global_layout.html" %}
+{% block content %}
+<div class="container">
+    {% include "flash_messages.html" %}
+    <div class="row" id="row">
+        <div class="col-md-12">
+            <!-- <div class="card" id="card-container">
+                <div class="card-body" id="card"> -->
+            <div >
+                <div>
+                {% if results|length == 0 %}
+                    <!-- |length is a jinja2 filter that returns the amount of items in a sequence -->
+                    <h1 style="margin-top: 5rem;">No Results!</h1>
+                {% else %}
+                    <div class="table-responsive">
+                        <table class="table">
+
+                            <thead>
+                                <tr>
+                                    {% for attr in results[0].keys() %}
+                                     <th>{{ attr }}</th>
+                                    {% endfor %}
+                                    <th>actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <form method="POST" action="{{ url_for('edit', update=1,table=table_name, colid=column_names[0], edval = (results[0][column_names[0]]|string)) }}"><br>
+                                    <tr>
+                                        {% for attr in results[0].keys() %}
+                                            <td><input type="text" name="{{ attr }}" value = "{{ results[0][attr] }}"></td>
+                                        {% endfor %}
+                                        <td>
+                                            <button >Update</button>
+                                        </td>
+                                    </tr>
+                                </form>
+
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+
+                <a href="{{ '/view?table=' + table_name +'&delete=0&add=0' }}">
+                    Back to table 
+                </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,44 @@
+{% extends "global_layout.html" %}
+{% block content %}
+<div class="container">
+    {% include "flash_messages.html" %}
+    <div class="row" id="row">
+        <div class="col-md-12">
+            <div class="card" id="card-container">
+                <div class="card-body" id="card">
+                    <h4 class="card-title">Top 3 field of reasearch combinations</h4>
+                </div>
+                <div class="card-body" id="card">
+                {% if fc|length == 0 %}
+                    <!-- |length is a jinja2 filter that returns the amount of items in a sequence -->
+                    <h1 style="margin-top: 5rem;">No projects found!</h1>
+                {% else %}
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Field Of Reasearch A</th>
+                                    <th>Field Of Reasearch B</th>
+                                    <th>Number of Projects</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for fc in fc %}
+                                    <tr>
+                                        <td> {{ fc.fr1 }} </td>
+                                        <td> {{ fc.fr2 }} </td>
+                                        <td> {{ fc.count }} </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

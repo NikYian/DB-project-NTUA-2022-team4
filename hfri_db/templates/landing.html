@@ -1,0 +1,117 @@
+{% extends "global_layout.html" %}
+{% block content %}
+<div class="container" id="row-container">
+    {% include "flash_messages.html" %}
+    <div class="row" id="row">
+        <div class="col-auto">
+            <div class="card" id="card-container-layout">
+                <div class="card-body" id="card">
+                    <h4 class="card-title">Project Select</h4>
+                    <p class="card-text" id="paragraph">Question 3.1</p>
+                    <a class="btn btn-primary" id="show-btn" href="/Q31">Show</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="card" id="card-container-layout">
+                <div class="card-body" id="card">
+                    <h4 class="card-title">Views</h4>
+                    <p class="card-text" id="paragraph">Question 3.2<br></p>
+                    <a class="btn btn-primary" id="show-btn" href="/Q321">View 1</a>
+                    <a class="btn btn-primary" id="show-btn" href="/Q322">View 2</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-auto">
+            <div class="card" id="card-container-layout">
+                <div class="card-body" id="card">
+                    <h4 class="card-title">Fields of Research</h4>
+                    <p class="card-text" id="paragraph">Question 3.3<br></p>
+                    <form method="POST" action="{{ url_for('Q33') }}">
+                        <SELECT name="field_select">
+                            {% for f in field %}
+                                <OPTION value="{{f.field_of_research}}">{{f.field_of_research}}</option>
+                            {% endfor %}
+                        </SELECT>
+                        <button class="btn btn-primary" id="show-btn" class="btn btn-default">Go</button>
+                   </form>                 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="row-container">
+        {% include "flash_messages.html" %}
+        <div class="row" id="row">
+            <div class="col-md-4">
+                <div class="card" id="card-container-layout">
+                    <div class="card-body" id="card">
+                        <h4 class="card-title">Organizations with same number of projects for two consecutive years</h4>
+                        <p class="card-text" id="paragraph">Question 3.4</p>
+                        <form method="POST" action="{{ url_for('Q34') }}">
+                            Projects per year more than <SELECT name="morethan">
+                                {% for n in morethan %}
+                                    <OPTION value="{{n.name}}">{{n.name}}</option>
+                                {% endfor %}
+                            </SELECT>
+                            <button class="btn btn-primary" id="show-btn" class="btn btn-default">Go</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" id="card-container-layout">
+                    <div class="card-body" id="card">
+                        <h4 class="card-title">Reasearch field combinations with most projects</h4>
+                        <p class="card-text" id="paragraph">Question 3.5<br></p>
+                        <a class="btn btn-primary" id="show-btn" href="/Q35">Show</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" id="card-container-layout">
+                    <div class="card-body" id="card">
+                        <h4 class="card-title">Researchers under 40 with the most projects</h4>
+                        <p class="card-text" id="paragraph">Question 3.6<br></p>
+                        <a class="btn btn-primary" id="show-btn" href="/Q36">Show</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="row-container">
+        {% include "flash_messages.html" %}
+        <div class="row" id="row">
+            <div class="col-md-4">
+                <div class="card" id="card-container-layout">
+                    <div class="card-body" id="card">
+                        <h4 class="card-title">HFRI executives</h4>
+                        <p class="card-text" id="paragraph">Question 3.7</p>
+                        <a class="btn btn-primary" id="show-btn" href="/Q37">Show</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" id="card-container-layout">
+                    <div class="card-body" id="card">
+                        <h4 class="card-title">Researches working on projects with no deriveralbles</h4>
+                        <p class="card-text" id="paragraph">Question 3.8<br></p>
+                        <a class="btn btn-primary" id="show-btn" href="/Q38">Show</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card" id="card-container-layout">
+                    <div class="card-body" id="card">
+                        <h4 class="card-title">View and edit tables</h4>
+                        <a class="btn btn-primary" id="show-btn" href="/alltables">Go</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+{% endblock content %}

@@ -1,0 +1,68 @@
+{% extends "global_layout.html" %}
+{% block content %}
+<div class="container" id="row-container">
+    {% include "flash_messages.html" %}
+
+    <h4 class="card-title"> Filter By</h4>
+    <p class="card-text" id="paragraph">Check none to see all projects</p>
+                    <form method="POST" action="{{ url_for('Q31res') }}"><br>
+
+                        Date <input type="checkbox" name="date"/><br>
+                        Start Date After  <input type="date" id="after" name="after"><br><br>
+                        Start Date Before  <input type="date" id="before" name="before"><br><br><br>
+                        
+                        Duration  <input type="checkbox" name="duration"/><br>                     
+                        Duration: less than  <input type="text" id="dur" name="dur"> days <br><br><br>
+
+
+                        Executive <input type="checkbox" name="exec"/><br>
+                        HFRI executive ID <SELECT name="field_select">
+                            {% for i in table %}
+                                 <OPTION value="{{i.executive_id}}">{{i.executive_id}}</option>
+                            {% endfor %}
+                        </SELECT><br><br>
+
+
+
+                        <button class="btn btn-primary" id="show-btn" class="btn btn-default">Go</button>
+                    </form>
+
+                    <div class="row" id="row">
+                        <div class="col-md-12">
+                            <div class="card" id="card-container">
+                                <div class="card-body" id="card">
+                                    <h4 class="card-title">HFRI executives</h4>
+                                </div>
+                                <div class="card-body" id="card">
+                                {% if table|length == 0 %}
+                                    <!-- |length is a jinja2 filter that returns the amount of items in a sequence -->
+                                    <h1 style="margin-top: 5rem;">No executives found!</h1>
+                                {% else %}
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Executive ID</th>
+                                                    <th>Name</th>
+                                                    <th>HFRI Governing Body</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for e in table %}
+                                                    <tr>
+                                                        <td> {{ e.executive_id }} </td>
+                                                        <td> {{ e.name }} </td>
+                                                        <td> {{ e.hfri_governing_body }} </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            {% endblock content %}
+

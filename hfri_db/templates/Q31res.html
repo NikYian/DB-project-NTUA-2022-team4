@@ -1,0 +1,56 @@
+{% extends "global_layout.html" %}
+{% block content %}
+<div class="container">
+    {% include "flash_messages.html" %}
+    <div class="row" id="row">
+        <div class="col-md-12">
+            <div class="card" id="card-container">
+                <div class="card-body" id="card">
+                    <h4> Filtered Projects</h4>
+                </div>
+                <div class="card-body" id="card">
+                {% if table|length == 0 %}
+                    <!-- |length is a jinja2 filter that returns the amount of items in a sequence -->
+                    <h1 style="margin-top: 5rem;">No projects found!</h1>
+                {% else %}
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Project ID</th>
+                                    <th>Project title</th>
+                                    <th>Summary</th>
+                                    <th>Funding (Millions of €)</th>
+                                    <th>Start date</th>
+                                    <th>End date</th>
+                                    <th>Duration (days)</th>
+                                    <th>HFRI Executive</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for p in table %}
+                                    <tr>
+                                        <form method="POST" action="{{ url_for('Q31res2') }}">
+                                        <td> <button class="btn btn-primary" id="show-btn" class="btn btn-default" name="btn" value="{{  p.project_id  }}" > {{ p.project_id }}</button></td>
+                                        </form>
+                                        <td> {{ p.title }} </td>
+                                        <td> {{ p.summary }} </td>
+                                        <td> {{ p.funding }} </td>
+                                        <td> {{ p.start_date }} </td>
+                                        <td> {{ p.end_date }} </td>
+                                        <td> {{ p.duration }} </td>
+                                        <td> {{ p.hfri_executive }} </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

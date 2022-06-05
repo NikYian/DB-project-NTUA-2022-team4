@@ -1,0 +1,95 @@
+{% extends "global_layout.html" %}
+{% block content %}
+<div class="container">
+    {% include "flash_messages.html" %}
+    <div class="row" id="row">
+        <div class="col-md-12">
+            <!-- <div class="card" id="card-container">
+                <div class="card-body" id="card"> -->
+            <div >
+                <div>
+                {% if results|length == 0 %}
+                    <!-- |length is a jinja2 filter that returns the amount of items in a sequence -->
+                    <h1 style="margin-top: 5rem;">No Results!</h1>
+                {% else %}
+                    <div class="table-responsive">
+                        <table class="table">
+
+                            <thead>
+                                <tr>
+                                    {% for attr in results[0].keys() %}
+                                     <th>{{ attr }}</th>
+                                    {% endfor %}
+                                    <th>actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <form method="POST" action="{{ url_for('tableView', delete=0,add=1,table=table_name) }}"><br>
+                                    <tr>
+                                        {% for attr in results[0].keys() %}
+                                            <td><input type="text" name="{{ attr }}"></td>
+                                        {% endfor %}
+                                        <td>
+                                            <button >Add</button>
+                                        </td>
+                                    </tr>
+                                </form>
+
+                                {% for result in results %}
+                                    <tr>
+                                        {% for attr in result.values() %}
+                                        <td>{{ attr }}</td>
+                                        {% endfor %}
+                                        <td>
+                                            <!-- <button>Edit</button> -->
+                                            <a href="{{ '/edit?table=' + table_name +'&update=0&colid=' +column_names[0]+'&edval=' +  result[column_names[0]]|string  }}">
+                                                Edit   
+                                            </a>
+                                            <div> </div>
+                                            <a href="{{ '/view?table=' + table_name +'&add=0&delete=1&edit=0&colid=' +column_names[0]+'&delval=' +  result[column_names[0]]|string  }}">
+                                                Delete
+                                            </a>
+                                            <!-- for delete action you need {{ table_name + '_id' }} -->
+                                            <!-- this sends delete request for specifc table with spefic id as a function property -->
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal
+<div class = "modal fade" id="deleteModal">
+    <div class = "modal-dialog">
+        <div class = "modal-content">
+            <div class = "modal-header">
+                <h5 class = "modal-title" id = "deleteModalLabel">Delete grade</h5>
+                <button type = "button" class = "btn-close" data-bs-dismiss = "modal" aria-label = "Close"></button>
+            </div>
+            <div class = "modal-body">
+                Are you sure?
+            </div>
+            <div class = "modal-footer">
+                <button type = "button" class = "btn btn-secondary" data-bs-dismiss = "modal">Close</button>
+                <form id = "modal-form">
+                    <input type = "submit" class = "btn btn-danger" value = "Delete">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function setModalFields(row) {
+        document.getElementById("modal-form").action = "/grades/delete/" + row.getAttribute("data-id");
+        document.getElementById("modal-form").method = "POST";
+    }
+</script> -->
+{% endblock content %}
